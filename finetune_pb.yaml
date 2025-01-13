@@ -1,0 +1,87 @@
+defaults:
+  - agent: aps_sac
+  - override hydra/launcher: submitit_local
+
+# mode
+reward_free: false
+# task settings
+task: walker_run
+obs_type: states # [states, pixels]
+frame_stack: 3 # only works if obs_type=pixels
+action_repeat: 1 # set to 2 for pixels
+discount: 0.99
+# train settings
+num_train_frames: 1000010
+num_seed_frames: 0 # 4000
+# eval
+eval_every_frames: 10000
+num_eval_episodes: 10
+# pretrained
+snapshot_ts: 1000000
+snapshot_base_dir: ../../../models
+# replay buffer
+replay_buffer_size: 1000000
+replay_buffer_num_workers: 4
+replay_buffer_ts: 100000
+batch_size: ${agent.batch_size}
+nstep: 1 # ${agent.nstep}
+update_encoder: false # can be either true or false depending if we want to fine-tune encoder
+# misc
+seed: 1
+device: cuda
+save_video: true
+save_train_video: false
+upload_train_video: false
+use_tb: false
+use_wandb: false
+# experiment
+experiment: exp
+
+# preference
+preference: true
+segment_len: 50
+num_interact: 20000
+reward_model_train_epoch: 100 # a.k.a. reward_update
+reward_batch: 100
+max_feedback: 10000
+log_reward_mismatch: true
+
+# query selection
+feed_type: 0  # 0 random, 1 disagreement, 2 entropy, 3 diff skill, 4 ds + disagreement, 5 skill return, 6 skill return + disagreement
+
+# surf
+data_aug_ratio: 4  # before is 20, but surf use 4; seems that change SURF threshold 0.95 -> 0.99 works (?)
+
+# scripy teacher
+teacher_beta: -1
+teacher_gamma: 1
+teacher_eps_mistake: 0
+teacher_eps_skip: 0
+teacher_eps_equal: 0
+skip_impl: mean  # [mean, diff, fix], postfix: [error, div], one can use multiple postfixes in any order splitted by '_', like 'diff_error_div'
+
+
+# scheduling
+reward_schedule: 0
+
+# SD + PbRL
+sd_pbrl: false
+reward_lamda: 0.1
+reward_start_rollouts: 20
+update_both_skill: true
+regress_meta_often: false
+
+hydra:
+  run:
+    dir: ./exp_local/${now:%Y.%m.%d}/${now:%H%M%S}_${agent.name}_${task}_${obs_type}_${seed}_finetune_p${preference}_${feed_type}_${teacher_eps_skip}
+  sweep:
+    dir: ./exp_sweep/${now:%Y.%m.%d}/${now:%H%M}_${agent.name}_${experiment}
+    subdir: ${hydra.job.num}
+  launcher:
+    timeout_min: 4300
+    cpus_per_task: 10
+    gpus_per_node: 1
+    tasks_per_node: 1
+    mem_gb: 160
+    nodes: 1
+    submitit_folder: ./exp_sweep/${now:%Y.%m.%d}/${now:%H%M}_${agent.name}_${experiment}/.slurm
