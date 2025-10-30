@@ -1,5 +1,6 @@
-# S-EPOA: Overcoming the Indivisibility of Annotations with Skill-Driven Preference-Based Reinforcement Learning
+# S-EPOA: Overcoming the Indistinguishability of Segments with Skill-Driven Preference-Based Reinforcement Learning
 
+This is the official implementation of S-EPOA (IJCAI 2025, [arxiv](https://arxiv.org/abs/2408.12130)).
 
 ## Requirements
 
@@ -16,14 +17,14 @@ tar -zxvf mujoco210-linux-x86_64.tar.gz
 rm -f mujoco210-linux-x86_64.tar.gz
 ```
 
-Include the following lines in the `~/.bashrc` file:
+Then, include the following lines in the `~/.bashrc` file:
 
 ```bash
 export LD_LIBRARY_PATH=~/.mujoco/mujoco210/bin
 export PATH="$LD_LIBRARY_PATH:$PATH"
 ```
 
-Then run `source ~/.bashrc`
+Finally, run `source ~/.bashrc`
 
 ### Install dependencies
 
@@ -79,5 +80,20 @@ bash ./scripts/metaworld_scripts/run_metaworld_pebble.sh  door_open 0.2 cuda:0 1
 ## Acknowledgement
 
 This repo benefits from [URLB](https://github.com/rll-research/url_benchmark), [BPref](https://github.com/rll-research/BPref), [SURF](https://github.com/alinlab/SURF), [RUNE](https://github.com/rll-research/rune), and [RIME](https://github.com/CJReinforce/RIME_ICML2024). Thanks for their wonderful work.
+
+## Citation
+
+If you find this project helpful, please consider citing the following paper:
+
+```bibtex
+@inproceedings{ijcai2025p664,
+  title     = {S-EPOA: Overcoming the Indistinguishability of Segments with Skill-Driven Preference-Based Reinforcement Learning},
+  author    = {Mu, Ni and Luan, Yao and Yang, Yiqin and Xu, Bo and Jia, Qing-Shan},
+  booktitle = {Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence, {IJCAI-25}},
+  pages     = {5967--5975},
+  year      = {2025},
+  doi       = {10.24963/ijcai.2025/664}
+}
+```
 
 
