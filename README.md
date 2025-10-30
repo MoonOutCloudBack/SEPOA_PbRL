@@ -86,7 +86,7 @@ This repo benefits from [URLB](https://github.com/rll-research/url_benchmark), [
 If you find this project helpful, please consider citing the following paper:
 
 ```bibtex
-@inproceedings{ijcai2025p664,
+@inproceedings{mu2025sepoa,
   title     = {S-EPOA: Overcoming the Indistinguishability of Segments with Skill-Driven Preference-Based Reinforcement Learning},
   author    = {Mu, Ni and Luan, Yao and Yang, Yiqin and Xu, Bo and Jia, Qing-Shan},
   booktitle = {Proceedings of the Thirty-Fourth International Joint Conference on Artificial Intelligence, {IJCAI-25}},
